@@ -40,7 +40,7 @@ function martingala(){
 #Backup initial
 backup_bet=$initial_bet
 play_counter=1
-bad_plays="[ "
+bad_plays=" "
 
 tput civis
 
@@ -94,7 +94,7 @@ else
 	echo -e "${yellowColour}[+]${endColour} ${grayColour}Han habido un total de${endColour} ${yellowColour}$play_counter${endColour} ${grayColour}jugadas${endColour}"
 
 	echo -e "${yellowColour}[!]${endColour} ${grayColour}Se representarán las malas jugadas que han salido consecutivamente${endColour}"
-	echo -e "${blueColour}$bad_plays${endColour}"
+	echo -e "${blueColour}[ $bad_plays ]${endColour}"
 	echo -e "${yellowColour}[+]${endColour} ${grayColour}El máximo dinero que has ganado es:${endColour} ${greenColour}$max_money$ ${endColour}"
 
 	tput cnorm; exit 0
@@ -137,7 +137,7 @@ if [ ! "$money" -eq 0 ]; then
 else
 	echo -e "${redColour}[!] Nos quedamos sin dinero${endColour}"
 	echo -e "${yellowColour}[+]${endColour} ${grayColour}Se representarán las jugadas malas que han salido consecutivamente${endColour}"
-	echo -e "$bad_plays"
+	echo -e "[ $bad_plays ]"
 	tput cnorm;	exit 0
 fi
 #Fin condicional impar
@@ -148,6 +148,14 @@ done
 	tput cnorm
 }
 
+function inverseLaBrouchere(){
+	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Dinero actual${endColour} ${yellowColour}$money${endColour}${grayColour}$ ${endColour}"
+	echo -ne "${yellowColour}[+]${endColoyr} ${grayColour}¿A que deseas apostar contínuamente? (par/impar) -> ${endColour}" && read par_impar
+
+	echo -e "${yellowColour}[+]${endColour} ${grayColour}Vamos a jugar con la cantidad incial de${endColour} ${yellowColour}$initial_bet$ ${endColour}${grayColour}a${endColour} ${blueColour}$par_impar${endColour}"
+
+
+}
 while getopts "m:t:h" args; do
 	case $args in
 		m) money="$OPTARG";;
@@ -159,6 +167,8 @@ done
 if [ $money ] && [ $technique ]; then
 		if [ "$technique" == "martingala" ]; then 
 			martingala
+		elif [ "$technique" == "inverseLaBrouchere" ]; then
+			inverseLaBrouchere
 		else
 			echo -e "\n${redColour}[!] La técnica introducida no existe${endColour}"
 			helpPanel
