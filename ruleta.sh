@@ -152,8 +152,17 @@ function inverseLaBrouchere(){
 	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Dinero actual${endColour} ${yellowColour}$money${endColour}${grayColour}$ ${endColour}"
 	echo -ne "${yellowColour}[+]${endColoyr} ${grayColour}¿A que deseas apostar contínuamente? (par/impar) -> ${endColour}" && read par_impar
 
-	echo -e "${yellowColour}[+]${endColour} ${grayColour}Vamos a jugar con la cantidad incial de${endColour} ${yellowColour}$initial_bet$ ${endColour}${grayColour}a${endColour} ${blueColour}$par_impar${endColour}"
+	declare -a mySequence=(1 2 3 4)
+	
+	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Comenzamos con la secuencia${endColour} ${greenColour} [ ${mySequence[@]} ]${endColour}"
 
+	bet=$((${mySequence[0]} + ${mySequence[-1]}))
+
+	unset mySequence[0]
+	unset mySequence[-1]
+	mySequence=(${mySequence[@]})
+
+	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Invertimos ${yellowColour}$bet$ ${endColour}${grayColour}y la secuencia se queda en${endColour} ${greenColour}[ ${mySequence[@]} ]${endColour}" 
 
 }
 while getopts "m:t:h" args; do
