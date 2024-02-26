@@ -164,6 +164,7 @@ function inverseLaBrouchere(){
 
 	echo -e "\n${yellowColour}[+]${endColour} ${grayColour}Invertimos ${yellowColour}$bet$ ${endColour}${grayColour}y la secuencia se queda en${endColour} ${greenColour}[ ${mySequence[@]} ]${endColour}" 
 
+
 }
 while getopts "m:t:h" args; do
 	case $args in
